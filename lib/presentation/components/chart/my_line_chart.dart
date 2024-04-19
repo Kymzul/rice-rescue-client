@@ -128,13 +128,15 @@ class MyLineChart extends StatelessWidget {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = isTemp ? '20 C' : '20 %';
+        text = isTemp ? '10 C' : '10 %';
         break;
+
       case 3:
-        text = isTemp ? '60 C' : '60 %';
+        text = isTemp ? '30 C' : '30 %';
         break;
+
       case 5:
-        text = isTemp ? '100 C' : '100 %';
+        text = isTemp ? '50 C' : '50 %';
         break;
 
       default:

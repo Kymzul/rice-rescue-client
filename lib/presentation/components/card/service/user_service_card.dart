@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vhack_client/presentation/components/image/mynetwork_image.dart';
 
 import '../../../../shared/constant/custom_color.dart';
 import '../../../../shared/constant/custom_string.dart';
@@ -26,8 +27,11 @@ class UserServiceCard extends StatelessWidget {
       child: ListTile(
         onTap: voidCallback,
         contentPadding: EdgeInsets.zero,
-        leading:
-            UserAvatarCard(userAvatar: userEntity['userAvatar'], radius: 50),
+        leading: MyNetworkImage(
+            pathURL: userEntity['userAvatar'],
+            width: 50,
+            height: 50,
+            radius: 50),
         title: Text(
           userEntity['userName'],
           style: CustomTextStyle.getTitleStyle(

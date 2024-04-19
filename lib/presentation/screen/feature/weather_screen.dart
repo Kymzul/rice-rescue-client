@@ -34,13 +34,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
       debugPrint('Current Latitude ${location.latitude}');
       debugPrint('Current Longitude ${location.longitude}');
       currentBloc.add(GenerateCurrentEvent(
-          locationEntity: LocationEntity(
+          locationEntity: LocationData(
               latitude: location.latitude, longitude: location.latitude)));
       dailyBloc.add(GenerateDailyEvent(
-          locationEntity: LocationEntity(
+          locationEntity: LocationData(
               latitude: location.latitude, longitude: location.longitude)));
       hourlyBloc.add(GenerateHourlyEvent(
-          locationEntity: LocationEntity(
+          locationEntity: LocationData(
               latitude: location.latitude, longitude: location.longitude)));
     } catch (e) {
       debugPrint('Error getting location: $e');
@@ -57,7 +57,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       future: LocationService.currentLocation(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          LocationEntity locationEntity = LocationEntity(
+          LocationData locationEntity = LocationData(
               latitude: snapshot.data!.latitude,
               longitude: snapshot.data!.longitude);
           return MultiBlocProvider(providers: [
@@ -75,7 +75,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
             )
           ], child: buildContent());
         } else {
-          return buildLoading();
+          return Scaffold(
+            backgroundColor: CustomColor.getBackgroundColor(context),
+            body: Center(
+              child: CircularProgressIndicator(
+                color: CustomColor.getSecondaryColor(context),
+              ),
+            ),
+          );
         }
       },
     );

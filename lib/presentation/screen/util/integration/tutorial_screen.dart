@@ -1,21 +1,27 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:vhack_client/features/auth/domain/entity/user_entity.dart';
 import 'package:vhack_client/presentation/components/image/mynetwork_image.dart';
 import 'package:vhack_client/presentation/components/timeline/timeline_tuto.dart';
 import 'package:vhack_client/presentation/screen/bridge_screen.dart';
 import 'package:vhack_client/shared/constant/custom_color.dart';
 import 'package:vhack_client/shared/constant/custom_textstyle.dart';
 
+import '../../../../features/auth/presentation/cubit/auth/auth_cubit.dart';
+import '../../../../features/auth/presentation/cubit/credential/credential_cubit.dart';
 import '../../../../shared/constant/custom_string.dart';
-import '../field/first_field_screen.dart';
+import '../../../../features/field/presentation/screen/first_field_screen.dart';
 
 class TutorailScreen extends StatefulWidget {
   final bool isFromWelcomeExp;
-  const TutorailScreen({super.key, required this.isFromWelcomeExp});
+  final String userID;
+  const TutorailScreen(
+      {super.key, required this.isFromWelcomeExp, required this.userID});
 
   @override
   State<TutorailScreen> createState() => _TutorailScreenState();
@@ -186,20 +192,22 @@ class _TutorailScreenState extends State<TutorailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColor.getBackgroundColor(context),
-      appBar: buildAppbar(context),
-      floatingActionButton: buildFloatingActionButton(context),
-      body: Column(
-        children: [buildListTimeLine(), buildListPage()],
-      ),
-    );
+    return buildContent();
   }
+
+  Widget buildContent() => Scaffold(
+        backgroundColor: CustomColor.getBackgroundColor(context),
+        appBar: buildAppbar(context),
+        floatingActionButton: buildFloatingActionButton(context),
+        body: Column(
+          children: [buildListTimeLine(), buildListPage()],
+        ),
+      );
 
   AppBar buildAppbar(BuildContext context) => AppBar(
         backgroundColor: CustomColor.getSecondaryColor(context),
         centerTitle: true,
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: widget.isFromWelcomeExp ? false : true,
         title: Text(
           'Tutorial',
           style: CustomTextStyle.getTitleStyle(
@@ -211,7 +219,9 @@ class _TutorailScreenState extends State<TutorailScreen> {
                 onPressed: () {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                        builder: (context) => const FirstFieldScreen(),
+                        builder: (context) => FirstFieldScreen(
+                          userID: widget.userID,
+                        ),
                       ),
                       (route) => false);
                 },

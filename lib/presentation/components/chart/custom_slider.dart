@@ -16,6 +16,10 @@ class CustomSlider extends StatelessWidget {
       required this.lineWidth,
       required this.radius});
 
+  double convertPercentage(double value) {
+    return value / 100;
+  }
+
   @override
   Widget build(BuildContext context) {
     return buildProgressBar(context);
@@ -30,16 +34,28 @@ class CustomSlider extends StatelessWidget {
     }
   }
 
+  Color selectColor(double fillPercentage) {
+    if (fillPercentage <= 0.25) {
+      return Colors.green;
+    } else if (fillPercentage <= 0.50) {
+      return const Color.fromARGB(255, 251, 230, 45);
+    } else if (fillPercentage <= 0.75) {
+      return Colors.orange;
+    } else {
+      return Colors.red;
+    }
+  }
+
   Widget buildProgressBar(BuildContext context) {
     return CircularPercentIndicator(
-      percent: 0.5,
+      percent: convertPercentage(percentage),
       radius: radius,
       lineWidth: lineWidth,
       animation: true,
       animateFromLastPercent: true,
-      progressColor: CustomColor.getSecondaryColor(context),
+      progressColor: selectColor(convertPercentage(percentage)),
       backgroundColor: CustomColor.getSecondaryColor(context).withOpacity(0.2),
-      center: Text('70 %',
+      center: Text('${percentage.toInt()} %',
           style: CustomTextStyle.getTitleStyle(
               context, 21, CustomColor.getSecondaryColor(context))),
     );

@@ -35,14 +35,14 @@ class ShopServiceCard extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          buildImage(shopEntity['productImage'], 400, 100),
+          buildImage(shopEntity['userAvatar'], 400, 100),
           const SizedBox(
             height: 10,
           ),
           Column(
             children: [
               Text(
-                shopEntity['productTitle'],
+                shopEntity['userCompanyName'],
                 style: CustomTextStyle.getSubTitleStyle(
                     context, 12, CustomColor.getTertieryColor(context)),
                 overflow: TextOverflow.ellipsis,
@@ -50,7 +50,7 @@ class ShopServiceCard extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Text(
-                shopEntity['productPrice'],
+                shopEntity['userCompanyName'],
                 style: CustomTextStyle.getTitleStyle(
                     context, 12, CustomColor.getSecondaryColor(context)),
               ),

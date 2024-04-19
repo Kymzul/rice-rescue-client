@@ -46,7 +46,7 @@ class MetricCard extends StatelessWidget {
             Text(
               metricDesc,
               style: CustomTextStyle.getTitleStyle(
-                  context, 15, CustomColor.getTertieryColor(context)),
+                  context, 12, CustomColor.getTertieryColor(context)),
             ),
           ],
         )

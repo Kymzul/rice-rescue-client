@@ -8,13 +8,14 @@ class MyDropDown extends StatelessWidget {
   final List<String> inputs;
   final String? selectedInput;
   final void Function(dynamic)? onChanged;
+  final String dropdownTitle;
 
-  const MyDropDown({
-    super.key,
-    required this.inputs,
-    required this.selectedInput,
-    required this.onChanged,
-  });
+  const MyDropDown(
+      {super.key,
+      required this.inputs,
+      required this.selectedInput,
+      required this.onChanged,
+      required this.dropdownTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +26,14 @@ class MyDropDown extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 0.5),
+          border: Border.all(color: Colors.grey, width: 1),
           borderRadius: BorderRadius.circular(12),
-          color: CustomColor.getPrimaryColor(context)),
+          color: CustomColor.getBackgroundColor(context)),
       child: DropdownButton<String>(
+        underline: Container(),
         borderRadius: BorderRadius.circular(12),
         hint: Text(
-          'Your Fields',
+          dropdownTitle,
           style: CustomTextStyle.getSubTitleStyle(context, 15, Colors.grey),
         ),
         value: selectedInput,

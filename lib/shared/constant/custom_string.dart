@@ -1,9 +1,9 @@
 class CustomString {
-  static const String GOOGLEMAP_APIKEY =
+  static const String googlemapAPIKEY =
       'AIzaSyCYaqpwYBzj60jK6ygFCmQtx_yD8KzMr5U';
 
   static String openaikey =
-      "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";
+      "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";
 
   static String promptAI =
       'You are an expert in the application for paddy give the information that related to this disease';
@@ -58,4 +58,11 @@ While surveying your paddy field for signs of pests and diseases, our applicatio
 Assess the readiness of the paddy crop for harvest when the majority of the grains have turned golden yellow and the moisture content is around 20-25%. Use appropriate harvesting equipment, such as sickles or combine harvesters, to cut the paddy stalks close to the ground. Gather the harvested paddy into bundles or piles for transportation to the drying facility.
 Add your machine in our machine management feature, if you don't have, find a suitable machine for you to harvest the crop, dokleh beli contact le org tu
 ''';
+
+  //http://10.0.2.2:8000/
+  //http://localhost:8080/
+  //https://nani-server-6.onrender.com/
+  //http://10.0.2.2:8080/api
+  //https://nani-server-6.onrender.com/api/user
+  static String baseURL = 'https://nani-server-6.onrender.com/api';
 }

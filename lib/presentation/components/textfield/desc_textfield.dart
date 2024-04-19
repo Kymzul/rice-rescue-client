@@ -5,7 +5,9 @@ import '../../../shared/constant/custom_textstyle.dart';
 
 class DescTextField extends StatelessWidget {
   final TextEditingController tcDesc;
-  const DescTextField({super.key, required this.tcDesc});
+  final String descTitle;
+  const DescTextField(
+      {super.key, required this.tcDesc, required this.descTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class DescTextField extends StatelessWidget {
           isDense: true,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          hintText: 'Description...',
+          hintText: descTitle,
           hintStyle: CustomTextStyle.getSubTitleStyle(context, 15, Colors.grey),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

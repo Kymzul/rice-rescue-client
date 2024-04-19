@@ -1,6 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:vhack_client/features/field/domain/entity/field_entity.dart';
 import 'package:vhack_client/presentation/components/chart/my_line_chart.dart';
+import 'package:vhack_client/presentation/components/chart/soil_moist_chart.dart';
+import 'package:vhack_client/presentation/components/chart/soil_temp_chart.dart';
 
 import '../../../../shared/constant/custom_color.dart';
 import '../../../../shared/constant/custom_string.dart';
@@ -9,10 +12,18 @@ import '../../chart/line_chart.dart';
 import '../../image/mynetwork_image.dart';
 
 class FieldDialog extends StatelessWidget {
-  FieldDialog({super.key});
+  final FieldEntity fieldEntity;
+  FieldDialog({super.key, required this.fieldEntity});
+
+  double convertTemp(double value) {
+    if (value > 60 || value == 60) {
+      return 60;
+    }
+    return value / 10;
+  }
 
   List<FlSpot> listSoilTemp = [
-    FlSpot(0, 2),
+    FlSpot(0, 46 / 10),
     FlSpot(1, 2),
     FlSpot(2, 4),
     FlSpot(3, 2.4),
@@ -25,6 +36,7 @@ class FieldDialog extends StatelessWidget {
     FlSpot(10, 2.9),
     FlSpot(11, 1.5),
   ];
+
   List<FlSpot> listSoilMoisture = [
     FlSpot(0, 2),
     FlSpot(1, 2),
@@ -53,21 +65,13 @@ class FieldDialog extends StatelessWidget {
         children: [
           buildPaddyCrop(context),
           const SizedBox(
-            height: 5,
-          ),
-          buildNutrientStatus(context),
-          const SizedBox(
-            height: 20,
+            height: 10,
           ),
           buildSoilTemperature(context),
           const SizedBox(
             height: 20,
           ),
           buildSoilMoisture(context),
-          const SizedBox(
-            height: 10,
-          ),
-          buildDiseaseRisk(context)
         ],
       ),
     );
@@ -78,61 +82,18 @@ class FieldDialog extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Paddy Crop',
-                style: CustomTextStyle.getTitleStyle(
-                    context, 15, CustomColor.getTertieryColor(context)),
-              ),
-              TextButton.icon(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    CustomColor.getSecondaryColor(context),
-                  ),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.group,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'Team',
-                  style: CustomTextStyle.getTitleStyle(
-                    context,
-                    12,
-                    CustomColor.getWhiteColor(context),
-                  ),
-                ),
-              )
-            ],
-          ),
           const SizedBox(
             height: 5,
           ),
           ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: MyNetworkImage(
-                pathURL: CustomString.fieldURL,
-                width: 80,
-                height: 60,
-                radius: 12),
             title: Text(
-              'Field 1',
+              fieldEntity.fieldName!,
               style: CustomTextStyle.getTitleStyle(
                   context, 15, CustomColor.getTertieryColor(context)),
             ),
             subtitle: Text(
-              'Irrigated Lowland',
+              fieldEntity.fieldCA!,
               style: CustomTextStyle.getTitleStyle(
                   context, 12, CustomColor.getSecondaryColor(context)),
             ),
@@ -205,10 +166,7 @@ class FieldDialog extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          MyLineChart(
-            listFlSpot: listSoilTemp,
-            isTemp: true,
-          )
+          SoilTempChart(fieldEntity: fieldEntity)
         ],
       ),
     );
@@ -228,10 +186,7 @@ class FieldDialog extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          MyLineChart(
-            listFlSpot: listSoilMoisture,
-            isTemp: false,
-          )
+          SoilMoistChart(fieldEntity: fieldEntity)
         ],
       ),
     );
@@ -308,6 +263,47 @@ class FieldDialog extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.grey,
       ),
+    );
+  }
+
+  Widget buildTest(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Paddy Crop',
+          style: CustomTextStyle.getTitleStyle(
+              context, 15, CustomColor.getTertieryColor(context)),
+        ),
+        TextButton.icon(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              CustomColor.getSecondaryColor(context),
+            ),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+          onPressed: () {},
+          icon: const Icon(
+            Icons.group,
+            color: Colors.white,
+          ),
+          label: Text(
+            'Team',
+            style: CustomTextStyle.getTitleStyle(
+              context,
+              12,
+              CustomColor.getWhiteColor(context),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

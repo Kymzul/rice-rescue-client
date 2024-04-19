@@ -41,7 +41,8 @@ class FeatureCard extends StatelessWidget {
             Text(
               eachFeature['featureTitle'],
               style: CustomTextStyle.getTitleStyle(
-                  context, 12, CustomColor.getTertieryColor(context)),
+                  context, 10, CustomColor.getTertieryColor(context)),
+              textAlign: TextAlign.center,
             )
           ],
         ),

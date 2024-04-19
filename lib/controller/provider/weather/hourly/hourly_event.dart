@@ -4,6 +4,6 @@ part of 'hourly_bloc.dart';
 sealed class HourlyEvent {}
 
 class GenerateHourlyEvent extends HourlyEvent {
-  final LocationEntity locationEntity;
+  final LocationData locationEntity;
   GenerateHourlyEvent({required this.locationEntity});
 }

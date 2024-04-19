@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vhack_client/presentation/components/button/text_button.dart';
 import 'package:vhack_client/presentation/components/dropdown/my_dropdown.dart';
-import 'package:vhack_client/presentation/screen/util/field/first_field_screen.dart';
+import 'package:vhack_client/features/field/presentation/screen/first_field_screen.dart';
 import 'package:vhack_client/presentation/screen/util/integration/tutorial_screen.dart';
 import 'package:vhack_client/shared/constant/custom_color.dart';
 import 'package:vhack_client/shared/constant/custom_textstyle.dart';
@@ -119,6 +119,7 @@ class _WelcomeExpScreenState extends State<WelcomeExpScreen> {
         child: IgnorePointer(
           ignoring: listButton[0][1] == true,
           child: MyDropDown(
+            dropdownTitle: 'Experience',
             inputs: years,
             selectedInput: selectedYear,
             onChanged: (value) {
@@ -159,15 +160,7 @@ class _WelcomeExpScreenState extends State<WelcomeExpScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: TextOnlyButton(
             buttonTitle: 'Confirm',
-            onPressed: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => const TutorailScreen(
-                      isFromWelcomeExp: true,
-                    ),
-                  ),
-                  (route) => false);
-            },
+            onPressed: () {},
             isMain: true,
             borderRadius: 12),
       );

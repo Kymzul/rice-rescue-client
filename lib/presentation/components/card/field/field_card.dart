@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:vhack_client/features/field/domain/entity/field_entity.dart';
 
 import '../../../../shared/constant/custom_color.dart';
 import '../../../../shared/constant/custom_textstyle.dart';
 
 class FieldCard extends StatelessWidget {
-  final Map<String, dynamic> eachField;
+  final FieldEntity eachField;
   const FieldCard({super.key, required this.eachField});
 
   Color selectedColor(String fieldCA) {
@@ -46,7 +47,7 @@ class FieldCard extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
                     bottomLeft: Radius.circular(12)),
-                color: selectedColor(eachField['fieldCA'])),
+                color: selectedColor(eachField.fieldCA!)),
           ),
           Expanded(
             child: Padding(
@@ -73,7 +74,7 @@ class FieldCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          eachField['fieldName'],
+          eachField.fieldName!,
           style: CustomTextStyle.getTitleStyle(
               context, 18, CustomColor.getTertieryColor(context)),
         ),
@@ -98,7 +99,7 @@ class FieldCard extends StatelessWidget {
               style: CustomTextStyle.getTitleStyle(context, 12, Colors.grey),
             ),
             Text(
-              eachField['fieldPCT'],
+              eachField.fieldCA!,
               style: CustomTextStyle.getTitleStyle(
                   context, 15, CustomColor.getTertieryColor(context)),
             )
@@ -118,7 +119,7 @@ class FieldCard extends StatelessWidget {
               style: CustomTextStyle.getTitleStyle(context, 12, Colors.grey),
             ),
             Text(
-              eachField['fieldCA'],
+              eachField.fieldCA!,
               style: CustomTextStyle.getTitleStyle(
                   context, 15, CustomColor.getTertieryColor(context)),
             )

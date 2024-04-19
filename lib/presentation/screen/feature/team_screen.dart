@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:vhack_client/presentation/screen/tabbar/team/team_forum_tabbar.dart';
-import 'package:vhack_client/presentation/screen/tabbar/team/team_member_tabbar.dart';
+import 'package:vhack_client/features/auth/domain/entity/user_entity.dart';
+import 'package:vhack_client/features/team/presentation/screen/team_forum_tabbar.dart';
+import 'package:vhack_client/features/team/presentation/screen/team_member_tabbar.dart';
 import 'package:vhack_client/shared/constant/custom_appbar.dart';
 import 'package:vhack_client/shared/constant/custom_color.dart';
 import 'package:vhack_client/shared/constant/custom_textstyle.dart';
 
 class TeamScreen extends StatefulWidget {
-  const TeamScreen({super.key});
+  final UserEntity userEntity;
+  const TeamScreen({super.key, required this.userEntity});
 
   @override
   State<TeamScreen> createState() => _TeamScreenState();
@@ -40,8 +42,12 @@ class _TeamScreenState extends State<TeamScreen> {
                         buildTabBar(),
                         Expanded(
                           child: TabBarView(children: [
-                            TeamMemberTabbar(),
-                            TeamForumTabbar()
+                            TeamMemberTabbar(
+                              userEntity: widget.userEntity,
+                            ),
+                            TeamForumTabbar(
+                              userEntity: widget.userEntity,
+                            )
                           ]),
                         )
                       ],
@@ -81,7 +87,7 @@ class _TeamScreenState extends State<TeamScreen> {
             context, 14, CustomColor.getSecondaryColor(context)),
         tabs: const [
           Tab(
-            text: 'Members',
+            text: 'Team',
           ),
           Tab(
             text: 'Forum',

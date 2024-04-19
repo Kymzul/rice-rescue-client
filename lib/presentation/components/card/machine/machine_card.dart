@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:vhack_client/features/machine/domain/entity/machine_entity.dart';
 import 'package:vhack_client/presentation/components/card/user_avatar_card.dart';
 
 import '../../../../shared/constant/custom_color.dart';
 import '../../../../shared/constant/custom_textstyle.dart';
 
 class MachineCard extends StatelessWidget {
-  final Map<String, dynamic> eachMachine;
-  const MachineCard({super.key, required this.eachMachine});
+  final MachineEntity eachMachine;
+  final VoidCallback onTap;
+  const MachineCard(
+      {super.key, required this.eachMachine, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +25,10 @@ class MachineCard extends StatelessWidget {
           color: CustomColor.getPrimaryColor(context)),
       child: ListTile(
           contentPadding: EdgeInsets.zero,
-          leading:
-              UserAvatarCard(userAvatar: eachMachine['machineURL'], radius: 50),
+          leading: UserAvatarCard(
+              userAvatar: eachMachine.machineImage!.avatarURL, radius: 50),
           title: Text(
-            eachMachine['machineName'],
+            eachMachine.machineName!,
             style: CustomTextStyle.getTitleStyle(
                 context, 15, CustomColor.getTertieryColor(context)),
           ),
@@ -33,23 +36,24 @@ class MachineCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'ID: ${eachMachine['machineID']}',
+                'ID: ${eachMachine.machineID}',
                 style: CustomTextStyle.getSubTitleStyle(
                     context, 12, CustomColor.getTertieryColor(context)),
               ),
               Text(
-                eachMachine['machineJob'],
+                eachMachine.machineDesc!,
                 style: CustomTextStyle.getSubTitleStyle(
                     context, 12, CustomColor.getTertieryColor(context)),
               )
             ],
           ),
-          trailing: buildTrailing(context)),
+          trailing:
+              GestureDetector(onTap: onTap, child: buildTrailing(context))),
     );
   }
 
   Widget buildTrailing(BuildContext context) {
-    if (eachMachine['machineStatus']) {
+    if (eachMachine.machineStatus!) {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(

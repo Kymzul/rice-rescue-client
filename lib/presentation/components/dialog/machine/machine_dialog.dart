@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vhack_client/features/machine/domain/entity/machine_entity.dart';
+import 'package:vhack_client/features/machine/presentation/cubit/machine/machine_cubit.dart';
 import 'package:vhack_client/presentation/components/button/small_button.dart';
 import 'package:vhack_client/presentation/components/card/machine/machine_card.dart';
+import 'package:vhack_client/presentation/components/image/mynetwork_image.dart';
 import 'package:vhack_client/shared/constant/custom_color.dart';
 import 'package:vhack_client/shared/constant/custom_textstyle.dart';
+import 'package:vhack_client/injection_container.dart' as di;
 
-class MachineDialog extends StatelessWidget {
-  MachineDialog({super.key});
+class MachineDialog extends StatefulWidget {
+  final void Function()? onPressed;
+  const MachineDialog({super.key, required this.onPressed});
+
+  @override
+  State<MachineDialog> createState() => _MachineDialogState();
+}
+
+class _MachineDialogState extends State<MachineDialog> {
   List<Map<String, dynamic>> machines = [
     {
       'machineID': '1',
@@ -89,6 +101,15 @@ class MachineDialog extends StatelessWidget {
     },
   ];
 
+  void handleSelectedMachine(MachineEntity machineEntity) {
+    BlocProvider.of<MachineCubit>(context).selectMachine(machineEntity);
+    setState(() {});
+  }
+
+  bool isSelected(MachineEntity machineEntity) {
+    return BlocProvider.of<MachineCubit>(context).isSelected(machineEntity);
+  }
+
   @override
   Widget build(BuildContext context) {
     return buildMachineDialog(context);
@@ -121,24 +142,147 @@ class MachineDialog extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(machines.length, (index) {
-                      return Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: MachineCard(
-                          eachMachine: machines[index],
-                        ),
-                      );
-                    }),
-                  ),
-                ),
-              ),
+              if (BlocProvider.of<MachineCubit>(context)
+                  .selectedMachines
+                  .isNotEmpty)
+                buildListSelectedMachine(),
+              Expanded(child: buildListMachine()),
+              buildButtom(context)
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget buildListSelectedMachine() => SizedBox(
+        height: 30,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount:
+              BlocProvider.of<MachineCubit>(context).selectedMachines.length,
+          itemBuilder: (context, index) {
+            MachineEntity eachMachine =
+                BlocProvider.of<MachineCubit>(context).selectedMachines[index];
+            return Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      color: CustomColor.getSecondaryColor(context)),
+                  child: Center(
+                      child: Text(
+                    eachMachine.machineName!,
+                    style: CustomTextStyle.getTitleStyle(
+                        context, 12, CustomColor.getWhiteColor(context)),
+                  ))),
+            );
+          },
+        ),
+      );
+
+  Widget buildListMachine() => BlocProvider<MachineCubit>(
+        create: (context) => di.sl<MachineCubit>()..getMachines(),
+        child: BlocBuilder<MachineCubit, MachineState>(
+          builder: (context, state) {
+            if (state is MachineLoaded) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: List.generate(state.machines.length, (index) {
+                    return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: buildMachineCard(state.machines[index]));
+                  }),
+                ),
+              );
+            }
+            if (state is MachineFailure) {
+              return Center(
+                child: Text(
+                  state.failureTitle,
+                  style: CustomTextStyle.getTitleStyle(
+                      context, 21, CustomColor.getSecondaryColor(context)),
+                ),
+              );
+            }
+            if (state is MachineEmpty) {
+              return Center(
+                child: Text(
+                  state.emptyTitle,
+                  style: CustomTextStyle.getTitleStyle(
+                      context, 21, CustomColor.getSecondaryColor(context)),
+                ),
+              );
+            }
+            return Container();
+          },
+        ),
+      );
+
+  Widget buildMachineCard(MachineEntity machineEntity) => Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(12),
+            color: CustomColor.getBackgroundColor(context)),
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: MyNetworkImage(
+              pathURL: machineEntity.machineImage!.avatarURL,
+              width: 50,
+              height: 50,
+              radius: 50),
+          title: Text(
+            machineEntity.machineName!,
+            style: CustomTextStyle.getTitleStyle(
+                context, 12, CustomColor.getTertieryColor(context)),
+          ),
+          subtitle: Text(
+            machineEntity.machineDesc!,
+            style: CustomTextStyle.getSubTitleStyle(
+                context, 12, CustomColor.getTertieryColor(context)),
+          ),
+          trailing: isSelected(machineEntity)
+              ? Icon(
+                  Icons.check_circle,
+                  color: CustomColor.getSecondaryColor(context),
+                )
+              : const Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.grey,
+                ),
+          onTap: () {
+            handleSelectedMachine(machineEntity);
+          },
+        ),
+      );
+  Widget buildButtom(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          MaterialButton(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: CustomColor.getTertieryColor(context)),
+                borderRadius: BorderRadius.circular(12)),
+            onPressed: () {
+              Navigator.pop(context);
+              BlocProvider.of<MachineCubit>(context).reset();
+            },
+            child: Center(
+                child: Text('Cancel',
+                    style: CustomTextStyle.getTitleStyle(
+                        context, 12, CustomColor.getTertieryColor(context)))),
+          ),
+          MaterialButton(
+            color: CustomColor.getSecondaryColor(context),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            onPressed: widget.onPressed,
+            child: Center(
+                child: Text('Add Machine',
+                    style: CustomTextStyle.getTitleStyle(
+                        context, 12, CustomColor.getWhiteColor(context)))),
+          ),
+        ],
+      );
 }

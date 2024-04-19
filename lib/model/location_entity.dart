@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class LocationEntity extends Equatable {
+class LocationData extends Equatable {
   final double? latitude;
   final double? longitude;
 
-  LocationEntity({this.latitude, this.longitude});
+  LocationData({this.latitude, this.longitude});
 
   @override
   // TODO: implement props

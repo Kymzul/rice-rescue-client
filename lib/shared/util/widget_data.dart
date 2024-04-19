@@ -17,9 +17,13 @@ class WidgetData {
     },
     {
       'metricID': '2',
-      'metricTitle': 'Soil Moisture',
-      'metricWidget': LineChartSample2(),
-      'metricDesc': '16% at Sungai Petani'
+      'metricTitle': 'Fertilization Phase',
+      'metricWidget': const CustomSlider(
+        percentage: 50.00,
+        lineWidth: 10,
+        radius: 100,
+      ),
+      'metricDesc': '7 Days'
     },
     {
       'metricID': '3',
@@ -29,13 +33,9 @@ class WidgetData {
     },
     {
       'metricID': '4',
-      'metricTitle': 'Fertilization Phase',
-      'metricWidget': const CustomSlider(
-        percentage: 50.00,
-        lineWidth: 10,
-        radius: 100,
-      ),
-      'metricDesc': '7 Days'
+      'metricTitle': 'Soil Moisture',
+      'metricWidget': LineChartSample2(),
+      'metricDesc': '16% at Sungai Petani'
     },
   ];
 

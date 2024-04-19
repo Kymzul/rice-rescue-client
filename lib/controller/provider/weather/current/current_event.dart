@@ -4,6 +4,6 @@ part of 'current_bloc.dart';
 sealed class CurrentEvent {}
 
 class GenerateCurrentEvent extends CurrentEvent {
-  final LocationEntity locationEntity;
+  final LocationData locationEntity;
   GenerateCurrentEvent({required this.locationEntity});
 }

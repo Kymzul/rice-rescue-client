@@ -15,14 +15,28 @@ class ServicePFScreen extends StatefulWidget {
 class _ServicePFScreenState extends State<ServicePFScreen> {
   final List<Map<String, dynamic>> listUser = [
     {
-      'userName': 'Lim Leejing',
+      'userName': 'Syafiq Halim',
       'userAvatar':
-          'https://media.licdn.com/dms/image/D5603AQH3Z0I6EFHSOw/profile-displayphoto-shrink_200_200/0/1708793327557?e=1716422400&v=beta&t=JKh9k6pTGpwTwB2IY_SkLj_-OyZ_TRh2gbQv0gbAhLA',
-      'userJobType': 'Agricultural Engineer',
+          'https://agribisnes.com/file/listing-uploads/logo/2022/06/AC44FDFC-5B4D-47C2-9FAE-539E597C12C4.jpeg',
+      'userJobType': 'Agricultural Consultation Specialist',
+      'userAge': '28 Years old',
+      'userExperience': '3 years',
+      'userAbout':
+          'Syafiq Halim, a 28-year-old agriculture service expert with 3 years of experience, is dedicated to leveraging drone technology for efficient farming practices and agricultural automation.',
+      'userCompanyName': 'Aeros Geotech Sdn Bhd',
+      'userDescription':
+          'AEROS GEOTECH SDN. BHD., established in June 2020 in Malaysia, specializes in drone consultancy and automation services for agriculture, offering unmanned aerial systems for tasks such as spraying, seeding, mapping, surveying, and structural inspection. They also develop and maintain agriculture-related software applications.',
+      'userOperatingHours': []
+    },
+    {
+      'userName': 'Muhammad Arfan',
+      'userAvatar':
+          'https://t4.ftcdn.net/jpg/04/72/63/81/360_F_472638196_0r0GDFu2sQ16DZcVuzPF1lPouVOMAuot.jpg',
+      'userJobType': 'Agricultural Consultant',
       'userAge': '39 Years old',
       'userExperience': '4 years',
       'userAbout':
-          'Lim Leejing, a seasoned Agricultural Engineer with 4 years of experience, specializes in optimizing drone-based solutions for agricultural needs.',
+          'Muhammad Arfan, a seasoned Agricultural Engineer with 4 years of experience, specializes in optimizing drone-based solutions for agricultural needs.',
       'userCompanyName': 'MZM TUALANG ENTERPRISE',
       'userDescription':
           'MZM TUALANG ENTERPRISE specializes in agriculture-drone related services, including the spraying of insecticides, pesticides, weed, and fungus control.',
@@ -35,20 +49,6 @@ class _ServicePFScreenState extends State<ServicePFScreen> {
         {'operatingDay': 'Saturday', 'operatingHour': 'Closed'},
         {'operatingDay': 'Sunday', 'operatingHour': 'Closed'}
       ]
-    },
-    {
-      'userName': 'Syafiq Halim',
-      'userAvatar':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfv_5So7EzBFWAr-JJH8q_ME2V9LsZEdhrnQ&usqp=CAU',
-      'userJobType': 'Agriculture service experts',
-      'userAge': '28 Years old',
-      'userExperience': '3 years',
-      'userAbout':
-          'Syafiq Halim, a 28-year-old agriculture service expert with 3 years of experience, is dedicated to leveraging drone technology for efficient farming practices and agricultural automation.',
-      'userCompanyName': 'Aeros Geotech Sdn Bhd',
-      'userDescription':
-          'AEROS GEOTECH SDN. BHD., established in June 2020 in Malaysia, specializes in drone consultancy and automation services for agriculture, offering unmanned aerial systems for tasks such as spraying, seeding, mapping, surveying, and structural inspection. They also develop and maintain agriculture-related software applications.',
-      'userOperatingHours': []
     },
   ];
 

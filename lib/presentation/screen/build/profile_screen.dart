@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vhack_client/features/auth/domain/entity/user_entity.dart';
+import 'package:vhack_client/features/auth/presentation/screen/credential_screen.dart';
+import 'package:vhack_client/features/auth/presentation/screen/login-screen.dart';
 import 'package:vhack_client/presentation/components/button/small_button.dart';
 import 'package:vhack_client/presentation/components/button/text_button.dart';
 import 'package:vhack_client/presentation/components/card/user_avatar_card.dart';
@@ -11,19 +15,39 @@ import 'package:vhack_client/shared/constant/custom_string.dart';
 import 'package:vhack_client/shared/constant/custom_textstyle.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../features/auth/presentation/cubit/auth/auth_cubit.dart';
+import '../../../features/auth/presentation/cubit/credential/credential_cubit.dart';
+import '../bridge_screen.dart';
+
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final UserEntity userEntity;
+  const ProfileScreen({super.key, required this.userEntity});
 
   final double coverHeight = 200;
   final double profileHeight = 200;
 
+  void signout(BuildContext context) {
+    // Access the AuthCubit and call the signOut method
+    BlocProvider.of<AuthCubit>(context).signOut();
+
+    // Navigate to the login screen and remove all previous routes
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => LoginScreen(),
+      ),
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       backgroundColor: CustomColor.getBackgroundColor(context),
-      body: ListView(
+      body: buildContent(context));
+
+  Widget buildContent(BuildContext context) => ListView(
         padding: EdgeInsets.zero,
-        children: [buildTop(), buildContent(context)],
-      ));
+        children: [buildTop(), buildUI(context)],
+      );
 
   Widget buildTop() {
     final top = coverHeight - profileHeight / 3;
@@ -49,11 +73,11 @@ class ProfileScreen extends StatelessWidget {
   Widget buildUserAvatar(double top) => Positioned(
       top: top,
       child: UserAvatarCard(
-          userAvatar:
-              'https://firebasestorage.googleapis.com/v0/b/twitter-clone-fullstack.appspot.com/o/users%2Fkymzul%40gmail.com?alt=media&token=f9506b23-8e57-4b07-b90e-37f116fc1563',
+          userAvatar: userEntity.userAvatar!.avatarURL,
           radius: profileHeight / 2));
 
-  Widget buildContent(BuildContext context) => Column(
+  Widget buildUI(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildTopContent(context),
           const SizedBox(
@@ -87,27 +111,29 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          buildLogoutButton(),
+          buildLogoutButton(context),
           const SizedBox(
             height: 16,
           ),
         ],
       );
 
-  Widget buildTopContent(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Irfan Ghaphar',
-            style: CustomTextStyle.getTitleStyle(
-                context, 18, CustomColor.getTertieryColor(context)),
-          ),
-          Text(
-            'Rice Farmer',
-            style: CustomTextStyle.getTitleStyle(
-                context, 15, CustomColor.getSecondaryColor(context)),
-          ),
-        ],
+  Widget buildTopContent(BuildContext context) => Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              userEntity.userEmail!,
+              style: CustomTextStyle.getTitleStyle(
+                  context, 18, CustomColor.getTertieryColor(context)),
+            ),
+            Text(
+              'Rice Farmer',
+              style: CustomTextStyle.getTitleStyle(
+                  context, 15, CustomColor.getSecondaryColor(context)),
+            ),
+          ],
+        ),
       );
 
   Widget buildRowSocialIcon(BuildContext context) => Row(
@@ -155,7 +181,8 @@ class ProfileScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            buildAboutWidget(context, title: 'Age', desc: '40 Years Old'),
+            buildAboutWidget(context,
+                title: 'Age', desc: '${userEntity.userAge} Years Old'),
             const SizedBox(
               width: 32,
             ),
@@ -202,7 +229,7 @@ class ProfileScreen extends StatelessWidget {
                   context, 15, CustomColor.getTertieryColor(context)),
             ),
             Text(
-              'Irfan is a good farmer with strong agility skills. Irfan is a good farmer with strong agility skills.',
+              userEntity.userDesc!,
               style: CustomTextStyle.getSubTitleStyle(
                   context, 15, CustomColor.getTertieryColor(context)),
             )
@@ -262,8 +289,9 @@ class ProfileScreen extends StatelessWidget {
             tileTitle: 'Tutorial',
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TutorailScreen(
+                builder: (context) => TutorailScreen(
                   isFromWelcomeExp: false,
+                  userID: userEntity.userID!,
                 ),
               ));
             },
@@ -326,11 +354,13 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildLogoutButton() => Padding(
+  Widget buildLogoutButton(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: TextOnlyButton(
             buttonTitle: 'Log Out',
-            onPressed: () {},
+            onPressed: () {
+              signout(context);
+            },
             isMain: true,
             borderRadius: 12),
       );

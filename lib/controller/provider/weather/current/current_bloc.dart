@@ -23,7 +23,7 @@ class CurrentBloc extends Bloc<CurrentEvent, CurrentState> {
     try {
       Position position = await LocationService.currentLocation();
 
-      final response = await weather.fetchCurrent(LocationEntity(
+      final response = await weather.fetchCurrent(LocationData(
           latitude: position.latitude, longitude: position.longitude));
       emit(CurrentLoaded(currentWeather: response));
     } catch (e) {

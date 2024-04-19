@@ -17,14 +17,14 @@ class ServiceConsultantScreen extends StatefulWidget {
 class _ServiceConsultantScreenState extends State<ServiceConsultantScreen> {
   final List<Map<String, dynamic>> listUser = [
     {
-      'userName': 'Lim Leejing',
+      'userName': 'Muhammad Arfan',
       'userAvatar':
-          'https://media.licdn.com/dms/image/D5603AQH3Z0I6EFHSOw/profile-displayphoto-shrink_200_200/0/1708793327557?e=1716422400&v=beta&t=JKh9k6pTGpwTwB2IY_SkLj_-OyZ_TRh2gbQv0gbAhLA',
-      'userJobType': 'Agricultural Engineer',
+          'https://t4.ftcdn.net/jpg/04/72/63/81/360_F_472638196_0r0GDFu2sQ16DZcVuzPF1lPouVOMAuot.jpg',
+      'userJobType': 'Agricultural Consultant',
       'userAge': '39 Years old',
       'userExperience': '4 years',
       'userAbout':
-          'Lim Leejing, a seasoned Agricultural Engineer with 4 years of experience, specializes in optimizing drone-based solutions for agricultural needs.',
+          'Muhammad Arfan, a seasoned Agricultural Engineer with 4 years of experience, specializes in optimizing drone-based solutions for agricultural needs.',
       'userCompanyName': 'MZM TUALANG ENTERPRISE',
       'userDescription':
           'MZM TUALANG ENTERPRISE specializes in agriculture-drone related services, including the spraying of insecticides, pesticides, weed, and fungus control.',
@@ -41,8 +41,8 @@ class _ServiceConsultantScreenState extends State<ServiceConsultantScreen> {
     {
       'userName': 'Haiqal Helmy',
       'userAvatar':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa22Mk-7S3sGX2luKof6sE027AjZdEUxiITA&usqp=CAU',
-      'userJobType': 'Agriculture Experts',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0PDIZ3syuj_QAeIPw-UOunYj5Jsf5u9ZlmQ&s',
+      'userJobType': 'Agriulture Experts',
       'userAge': '40 Years old',
       'userExperience': '7 years',
       'userAbout':
@@ -63,8 +63,8 @@ class _ServiceConsultantScreenState extends State<ServiceConsultantScreen> {
     {
       'userName': 'Syafiq Halim',
       'userAvatar':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfv_5So7EzBFWAr-JJH8q_ME2V9LsZEdhrnQ&usqp=CAU',
-      'userJobType': 'Agriculture service experts',
+          'https://agribisnes.com/file/listing-uploads/logo/2022/06/AC44FDFC-5B4D-47C2-9FAE-539E597C12C4.jpeg',
+      'userJobType': 'Agricultural Consultation Specialist',
       'userAge': '28 Years old',
       'userExperience': '3 years',
       'userAbout':
@@ -75,14 +75,14 @@ class _ServiceConsultantScreenState extends State<ServiceConsultantScreen> {
       'userOperatingHours': []
     },
     {
-      'userName': 'Azhari Haris',
+      'userName': 'Idrish Jauhari',
       'userAvatar':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbgk0yfCOe55931lf6q0osfhGRU-fnH8Im1g&usqp=CAU',
+          'https://seeklogo.com/images/A/agro_bank-logo-232BF645A2-seeklogo.com.png',
       'userJobType': 'Agricultural Consultation Specialist',
       'userAge': '30 Years old',
       'userExperience': '3 years',
       'userAbout':
-          'With a passion for agricultural advancement and three years of hands-on experience, Azhari specializes in providing expert consultation services to farmers and agribusinesses.',
+          'With a passion for agricultural advancement and three years of hands-on experience, Idrish specializes in providing expert consultation services to farmers and agribusinesses.',
       'userCompanyName': 'Agrobank',
       'userDescription':
           'Agrobank is a leading financial institution in Malaysia dedicated to serving the agricultural sector. Established in 1969, Agrobank offers a wide range of financial products and services tailored to the unique needs of farmers, agropreneurs, and agribusinesses. From loans and financing to savings and advisory services, Agrobank plays a crucial role in supporting the growth and development of Malaysia\'s agriculture industry.',
@@ -100,14 +100,14 @@ class _ServiceConsultantScreenState extends State<ServiceConsultantScreen> {
       ]
     },
     {
-      'userName': 'Hakim Zul',
+      'userName': 'Muhammad Mulyadi',
       'userAvatar':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzv0oZnrK2tzmMpzKG-cHBckqS6hkDhqLMdQ&usqp=CAU',
+          'https://cdn1.npcdn.net/images/20190319_dea25f.webp?md5id=67aa32a1a83b0ac24b4a944f48c6af77&new_width=1000&new_height=1000&size=max&w=1707353261&from=jpg&type=1',
       'userJobType': 'Machinery Maintenance and Repair Specialist',
       'userAge': '25 Years old',
       'userExperience': '4 years',
       'userAbout':
-          'With four years of hands-on experience in fixing and maintaining industrial machinery, Hakim Zul is dedicated to ensuring optimal performance and reliability in machine operations.',
+          'With four years of hands-on experience in fixing and maintaining industrial machinery, Muhammad Mulyadi is dedicated to ensuring optimal performance and reliability in machine operations.',
       'userCompanyName': 'MSE Laser',
       'userDescription':
           'Founded in 2002, MSE Industries Sdn Bhd (MSE) is a dynamic company known for its expertise in laser welding and thermal spray solutions. Headquartered in Bandar Pinggiran Subang, Selangor Darul Ehsan, MSE offers reliable and sustainable products and services for critical welding maintenance and integration applications. With subsidiary companies like MSE Lasertech (M) Sdn Bhd, MSE extends its reach both locally and internationally, providing comprehensive consultancy and supply services to various industries, including engineering, oil & gas, and aviation. MSE is committed to delivering innovative solutions and outstanding service to meet the diverse needs of its customers.',
@@ -122,7 +122,6 @@ class _ServiceConsultantScreenState extends State<ServiceConsultantScreen> {
       ]
     }
   ];
-
   List listChip = [
     ['Farmers', false],
     ['Finance', false]
