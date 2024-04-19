@@ -9,6 +9,7 @@
 [![License](https://poser.pugx.org/aimeos/aimeos-typo3/license.svg)](https://packagist.org/packages/aimeos/aimeos-typo3)
 
 ## Our server: https://github.com/Kymzul/rice-rescue-server
+## Our IOT Integration: https://github.com/haziqishere/iotpestdetector_vhack24
 
 # Welcome to Rice Rescue 🌾
 
